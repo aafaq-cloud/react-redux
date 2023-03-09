@@ -5,7 +5,13 @@
 // import { useSelector } from 'react-redux';
 // The useDipatch hook to dispatch an action
 import { useSelector, useDispatch } from 'react-redux';
-import { INCREMENT } from '../store';
+// import { INCREMENT } from '../store';
+
+// IMPORT ACTIONS FROM REDUX TOOLKIT TO DISPATCH THEM
+// Named export
+// Hover over to see
+import { counterActions } from './../store/index';
+
 // import {useStore} from 'react-redux';
 import classes from './Counter.module.css';
 
@@ -21,16 +27,27 @@ const Counter = () => {
     // Note: An action is an object with a type property
     // An action is an object with a type property. So let's add such an object here as an argument to the dispatch function call so that we dispatch this specific object. And then the value for type should be one of the identifiers we use in our Redux store reducer.
     // dispatch({ type: 'increment' });
-    dispatch({ type: INCREMENT });
+    // dispatch({ type: INCREMENT });
+
+    // DISPATCH ACTION USING REDUX TOOLKIT
+    // It creates a full action object with the type set to this automatically created unique action identifier
+    dispatch(counterActions.increment());
   };
 
   const decrementHandler = () => {
-    dispatch({ type: 'decrement' });
+    // dispatch({ type: 'decrement' });
+
+    dispatch(counterActions.decrement());
   };
 
   const increaseHandler = () => {
     // It will have one as the type is increase but it cannot also get an extra payload, extra data which it carries.
-    dispatch({ type: 'increase', amount: 5 });
+    // dispatch({ type: 'increase', amount: 5 });
+    // Pass payload data object or just number
+    // How to extract that value?
+    // Default Redux Toolkit uses pattern
+    // action = { type: SOME_UNIQUE_IDENTIFIER, payload}
+    dispatch(counterActions.increase(10));
   };
 
   // We can get access to the data manages in our store by using useSelector() hook
@@ -56,7 +73,9 @@ const Counter = () => {
 
   const toggleCounterHandler = () => {
     // Dispatch an action which changes some state in Redux which controls whether this counter div is shown or not.
-    dispatch({ type: 'toggle' });
+    // dispatch({ type: 'toggle' });
+
+    dispatch(counterActions.toggleCounter());
   };
 
   return (

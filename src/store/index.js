@@ -38,7 +38,9 @@ const counterSlice = createSlice({
     },
     // We also get second paramter in reducer i.e action but it's optional
     increase(state, action) {
-      state.counter = state.counter + action.amount;
+      //   state.counter = state.counter + action.amount;
+        // Payload from redux toolkit
+      state.counter = state.counter + action.payload;
     },
     toggleCounter(state) {
       // Invert value
@@ -73,6 +75,15 @@ const store = configureStore({
    */
   reducer: counterSlice.reducer,
 });
+
+// MIGRATING EVERYTHIG TO REDUX TOOLKIT
+// Dispatch action
+// counterSlice.actions.toggleCounter
+// { type: 'some auto generated unique identifier' }
+// Avoiding typos
+
+// Export
+export const counterActions = counterSlice.actions;
 
 // How to connect store with React App?
 // For this we need to provide this store to the React App/.
