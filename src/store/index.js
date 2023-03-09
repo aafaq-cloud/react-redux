@@ -7,16 +7,26 @@ import { createStore } from 'redux';
 
 // Create reducer function
 const counterReducer = (state = { counter: 2 }, action) => {
-    // Handle different actions and return latest snapshot
-    if (action.type === 'increment') {
-        return { counter: state.counter + 1 }
-    }
-    if (action.type === 'decrement') {
-        return { counter: state.counter - 1 }
-    }
+  // Handle different actions and return latest snapshot
+  if (action.type === 'increment') {
+    return { counter: state.counter + 1 };
+  }
+  if (action.type === 'decrement') {
+    return { counter: state.counter - 1 };
+  }
 
-    // Default return
-    return state;
+  //   if (action.type === 'increaseby5') {
+  //     //   Hardcode
+  //     return { counter: state.counter + 5 };
+  //   }
+
+  if (action.type === 'increase') {
+    //   Hardcode
+    return { counter: state.counter + action.amount };
+  }
+
+  // Default return
+  return state;
 };
 
 // Create store
