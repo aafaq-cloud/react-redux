@@ -5,7 +5,10 @@
 // Pull createStore from redux package
 import { createStore } from 'redux';
 
-//
+// Import createSlice from Redux Toolkit to create state slices
+import { createSlice } from '@reduxjs/toolkit';
+
+// RULES OF IDENTIFIERS
 export const INCREMENT = 'increment';
 
 // Create reducer function
@@ -16,6 +19,38 @@ export const INCREMENT = 'increment';
 
 const initialState = { counter: 2, showCounter: true };
 
+// CALL CREATE SLICE
+// It wants an object as an argument
+createSlice({
+  name: 'counter',
+  //   initialState: { counter: 0, showCounter: true },
+  // initialState: initialState
+  // Modern JavaScript Feature
+  initialState,
+  // Map all the methods it needs
+  reducers: {
+    increment(state) {
+      state.counter++;
+    },
+    decrement(state) {
+      state.counter--;
+    },
+    // We also get second paramter in reducer i.e action but it's optional
+    increase(state, action) {
+      state.counter = state.counter + action.amount;
+    },
+    toggleCounter(state) {
+      // Invert value
+      state.showCounter = !state.showCounter;
+    },
+  },
+});
+
+// Result: So now we created this slice and writing that code is certainly quite convenient and shorter than what we had to do down there.
+// But how do we now make our store aware of that slice?
+// How to do use that slice?
+// And how do we then dispatch actions against this slice?
+
 // const counterReducer = (state = { counter: 2, showCounter: true }, action) => {
 const counterReducer = (state = initialState, action) => {
   /**
@@ -25,8 +60,8 @@ const counterReducer = (state = initialState, action) => {
    */
 
   // Handle different actions and return latest snapshot
-//   if (action.type === 'increment') {
-    if (action.type === INCREMENT) {
+  //   if (action.type === 'increment') {
+  if (action.type === INCREMENT) {
     //   Now when we increment, we are changing the counter, we don't care about showCounter.
     // We still need to set the showCounter property here though because we are returning the overall state object and Redux won't merge your changes with the existing state.
     //   It instead takes what you return and replaces the existing state with it.
