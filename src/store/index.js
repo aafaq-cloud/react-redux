@@ -6,7 +6,7 @@
 import { createStore } from 'redux';
 
 // Create reducer function
-const counterReducer = (state = { counter: 10 }, action) => {
+const counterReducer = (state = { counter: 2 }, action) => {
     // Handle different actions and return latest snapshot
     if (action.type === 'increment') {
         return { counter: state.counter + 1 }
