@@ -5,6 +5,7 @@
 // import { useSelector } from 'react-redux';
 // The useDipatch hook to dispatch an action
 import { useSelector, useDispatch } from 'react-redux';
+import { INCREMENT } from '../store';
 // import {useStore} from 'react-redux';
 import classes from './Counter.module.css';
 
@@ -19,7 +20,8 @@ const Counter = () => {
     // Dispatch a new action
     // Note: An action is an object with a type property
     // An action is an object with a type property. So let's add such an object here as an argument to the dispatch function call so that we dispatch this specific object. And then the value for type should be one of the identifiers we use in our Redux store reducer.
-    dispatch({ type: 'increment' });
+    // dispatch({ type: 'increment' });
+    dispatch({ type: INCREMENT });
   };
 
   const decrementHandler = () => {
