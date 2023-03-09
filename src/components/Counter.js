@@ -2,11 +2,30 @@
 /**
  * There also is use store hook, which we could use as well which gives us direct access to the store but useSelector is a bit more convenient to use because that allows us to then automatically select a part of our state managed by the store.
  */
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
+// The useDipatch hook to dispatch an action
+import { useSelector, useDispatch } from 'react-redux';
 // import {useStore} from 'react-redux';
 import classes from './Counter.module.css';
 
 const Counter = () => {
+  // The useDispatch() Hook
+  // When we call we don't pass any
+  // When we call use dispatch here, we don't pass any argument to it, but instead, this gives us back a dispatch function which you can execute. So this patch here is a function, a function which we can call, which will dispatch an action against our Redux store.
+  const dispatch = useDispatch();
+
+  // So add two new functions in our counter component
+  const incrementHandler = () => {
+    // Dispatch a new action
+    // Note: An action is an object with a type property
+    // An action is an object with a type property. So let's add such an object here as an argument to the dispatch function call so that we dispatch this specific object. And then the value for type should be one of the identifiers we use in our Redux store reducer.
+    dispatch({ type: 'increment' });
+  };
+
+  const decrementHandler = () => {
+    dispatch({ type: 'decrement' });
+  };
+
   // We can get access to the data manages in our store by using useSelector() hook
   // We call this so now pass a function to this hook
   // A function which will be executed by a React Redux. A function which then basically determines which piece of data we wanna extract from our store.
@@ -32,15 +51,28 @@ const Counter = () => {
       <h1>Redux Counter</h1>
       {/* Output current counter */}
       {/* For this import something from react-redux package and something is a React Hook i.e useSelector */}
-      
+
       {/* Now that we got this counter, we can use it down there, to output the counter value like this. And if we now save this, we therefore now see zero here. */}
       {/* <div className={classes.value}>-- COUNTER VALUE --</div> */}
       {/* RESULT: And that's how we can get access to data managed by Redux. */}
       {/* Of course the question now is how we can change that data? How can we dispatch actions? */}
       <div className={classes.value}>{counter}</div>
+      {/* Buttons for dispatching actions */}
+      <div>
+        <button type="button" onClick={decrementHandler}>
+          Decrement
+        </button>
+        <button type="button" onClick={incrementHandler}>Increment</button>
+      </div>
       <button onClick={toggleCounterHandler}>Toggle Counter</button>
     </main>
   );
 };
 
 export default Counter;
+
+/**
+ * DISPATCHING ACTIONS FROM INSIDE COMPONENTS
+ * But how does that work from inside a react component?
+  Well, there is another hook which we can use, the use dispatch hook. When we call use dispatch here, we don't pass any argument to it, but instead, this gives us back a dispatch function which you can execute. So this patch here is a function, a function which we can call, which will dispatch an action against our Redux store.
+ */
