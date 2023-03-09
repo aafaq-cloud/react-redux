@@ -15,12 +15,43 @@ const initialState = { counter: 2, showCounter: true };
 
 // const counterReducer = (state = { counter: 2, showCounter: true }, action) => {
 const counterReducer = (state = initialState, action) => {
+  /**
+   * HOW TO WORK WITH REDUX STATE CORRECTLY
+   *
+   * Note: We always return a brand new snapshot, a brand new state object which Redux will use to replace its existing state with. So the objects which we return in the reducer will not, and that's super important will not be merged with the existing state. They will overwrite the existing state.
+   */
+
   // Handle different actions and return latest snapshot
   if (action.type === 'increment') {
     //   Now when we increment, we are changing the counter, we don't care about showCounter.
     // We still need to set the showCounter property here though because we are returning the overall state object and Redux won't merge your changes with the existing state.
     //   It instead takes what you return and replaces the existing state with it.
     return { counter: state.counter + 1, showCounter: state.showCounter };
+
+    //   Override
+    //   undefined is treated as falsy
+    //   return { counter: state.counter + 1 };
+
+    // Why do we need to return a new piece of data here?
+    // Update counter
+    // state.counter++;
+    //   return state;
+    /**
+     * Well, if we do that and we reload, everything works. So it's not easy to see that this is wrong, but it is, even though it works. This is something you absolutely must not do when working with Redux.
+     */
+
+    /**
+     * And because objects and arrays are reference values in JavaScript, it's easy to accidentally override and change the existing state. You could for example think that you can do something like this. And then you return a new object where you then do set to counter to state.counter and show counter to state.showcounter. We can do this because we changed the counter here. And then we returned a brand new object.
+     * Everything's good, right? Well, again, that will work. If I reload, it works, but it's still super bad because we still mutate the existing state because object and arrays are reference values in JavaScript.
+     * Now, when working with redux and it's state you must never mutate state like this never changed the original state which you're getting. This can lead to bugs, unpredictable behavior and it can make debugging your application harder as well.
+     * So even though it doesn't lead to a bug here it can have unwanted and unexpected side effects in bigger applications where your state gets out of sync. And suddenly the UI is not reflecting your state correctly anymore.
+     * And hence the simple rule is never mutate your state like this. Always return a brand new object where you copy any nested objects or arrays. If you have any and create brand new values as we're doing it here.
+     */
+    //   state.counter++;
+    //   return {
+    //       counter: state.counter,
+    //       showCounter: state.showCounter
+    //   }
   }
   if (action.type === 'decrement') {
     return { counter: state.counter - 1, showCounter: state.showCounter };
