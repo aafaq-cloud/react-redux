@@ -6,17 +6,45 @@
 import { createStore } from 'redux';
 
 // Create reducer function
-const counterReducer = (state = { counter: 2 }, action) => {
-    // Handle different actions and return latest snapshot
-    if (action.type === 'increment') {
-        return { counter: state.counter + 1 }
-    }
-    if (action.type === 'decrement') {
-        return { counter: state.counter - 1 }
-    }
+/**
+ * WORKING WITH MULTIPLE STATE PROPERTIES
+ * For this, we need to add a new state a new piece of data to our Redux store. And how do we now do that? Well, to add a new piece of data, we need to go to our reducer in the end and just add it to all these state snapshots which we are producing. Let's start with the initial state snapshot.
+ */
 
-    // Default return
-    return state;
+const initialState = { counter: 2, showCounter: true };
+
+// const counterReducer = (state = { counter: 2, showCounter: true }, action) => {
+const counterReducer = (state = initialState, action) => {
+  // Handle different actions and return latest snapshot
+  if (action.type === 'increment') {
+    //   Now when we increment, we are changing the counter, we don't care about showCounter.
+    // We still need to set the showCounter property here though because we are returning the overall state object and Redux won't merge your changes with the existing state.
+    //   It instead takes what you return and replaces the existing state with it.
+    return { counter: state.counter + 1, showCounter: state.showCounter };
+  }
+  if (action.type === 'decrement') {
+    return { counter: state.counter - 1, showCounter: state.showCounter };
+  }
+
+  if (action.type === 'increase') {
+    //   Hardcode
+    return {
+      counter: state.counter + action.amount,
+      showCounter: state.showCounter,
+    };
+  }
+
+  if (action.type === 'toggle') {
+    return {
+      // Keep the existing state
+      counter: state.counter,
+      // Invert the value
+      showCounter: !state.showCounter,
+    };
+  }
+
+  // Default return
+  return state;
 };
 
 // Create store

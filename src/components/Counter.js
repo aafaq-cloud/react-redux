@@ -26,6 +26,11 @@ const Counter = () => {
     dispatch({ type: 'decrement' });
   };
 
+  const increaseHandler = () => {
+    // It will have one as the type is increase but it cannot also get an extra payload, extra data which it carries.
+    dispatch({ type: 'increase', amount: 5 });
+  };
+
   // We can get access to the data manages in our store by using useSelector() hook
   // We call this so now pass a function to this hook
   // A function which will be executed by a React Redux. A function which then basically determines which piece of data we wanna extract from our store.
@@ -44,7 +49,13 @@ const Counter = () => {
   // Store return value
   const counter = useSelector(state => state.counter);
 
-  const toggleCounterHandler = () => {};
+  // We can use this multiple times to retrieve different pieces of data from the state.
+  const show = useSelector(state => state.showCounter);
+
+  const toggleCounterHandler = () => {
+    // Dispatch an action which changes some state in Redux which controls whether this counter div is shown or not.
+    dispatch({ type: 'toggle' });
+  };
 
   return (
     <main className={classes.counter}>
@@ -56,13 +67,18 @@ const Counter = () => {
       {/* <div className={classes.value}>-- COUNTER VALUE --</div> */}
       {/* RESULT: And that's how we can get access to data managed by Redux. */}
       {/* Of course the question now is how we can change that data? How can we dispatch actions? */}
-      <div className={classes.value}>{counter}</div>
+      {show && <div className={classes.value}>{counter}</div>}
       {/* Buttons for dispatching actions */}
       <div>
         <button type="button" onClick={decrementHandler}>
           Decrement
         </button>
-        <button type="button" onClick={incrementHandler}>Increment</button>
+        {/* ATTACHING PAYLOADS TO ACTIONS */}
+        {/* In reality, you often wanna dispatch actions that also carry an extra value. */}
+        <button onClick={increaseHandler}>Increase by 5</button>
+        <button type="button" onClick={incrementHandler}>
+          Increment
+        </button>
       </div>
       <button onClick={toggleCounterHandler}>Toggle Counter</button>
     </main>
