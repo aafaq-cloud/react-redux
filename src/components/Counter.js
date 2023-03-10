@@ -18,7 +18,7 @@ import classes from './Counter.module.css';
 const Counter = () => {
   // The useDispatch() Hook
   // When we call we don't pass any
-  // When we call use dispatch here, we don't pass any argument to it, but instead, this gives us back a dispatch function which you can execute. So this patch here is a function, a function which we can call, which will dispatch an action against our Redux store.
+  // When we call use dispatch here, we don't pass any argument to it, but instead, this gives us back a dispatch function which you can execute. So this dispatch here is a function, a function which we can call, which will dispatch an action against our Redux store.
   const dispatch = useDispatch();
 
   // So add two new functions in our counter component
@@ -66,10 +66,10 @@ const Counter = () => {
   // So you always have the latest counter. That's why use selector is a very useful hook and why it is the hook we use for getting data out of the store.
   // If you ever would unmount this component if it would be removed from the DOM for whatever reason, React Redux would also automatically clear the subscription for you. So it manages that subscription for you behind the scenes
   // Store return value
-  const counter = useSelector(state => state.counter);
+  const counter = useSelector(state => state.counter.counter);
 
   // We can use this multiple times to retrieve different pieces of data from the state.
-  const show = useSelector(state => state.showCounter);
+  const show = useSelector(state => state.counter.showCounter);
 
   const toggleCounterHandler = () => {
     // Dispatch an action which changes some state in Redux which controls whether this counter div is shown or not.
