@@ -10,7 +10,8 @@ import { useSelector, useDispatch } from 'react-redux';
 // IMPORT ACTIONS FROM REDUX TOOLKIT TO DISPATCH THEM
 // Named export
 // Hover over to see
-import { counterActions } from './../store/index';
+// import { counterActions } from './../store/index';
+import { counterActions } from './../store/counter';
 
 // import {useStore} from 'react-redux';
 import classes from './Counter.module.css';
